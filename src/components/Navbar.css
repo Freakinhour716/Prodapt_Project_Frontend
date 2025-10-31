@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap; /* ✅ allows wrapping when screen is small */
+  flex-wrap: wrap;
   padding: 0.8rem 2rem;
 
   background: linear-gradient(90deg, rgba(25, 25, 40, 0.95), rgba(40, 40, 70, 0.95));
@@ -37,13 +37,13 @@
 }
 
 /* ================= RIGHT SECTION ================= */
-.ml-auto {
+.ms-auto {
   display: flex;
   align-items: center;
-  flex-wrap: wrap; /* ✅ this fixes the overflow */
   justify-content: flex-end;
-  gap: 0.7rem;
+  gap: 0.8rem;
   margin-left: auto;
+  flex-wrap: wrap;
 }
 
 /* ================= BUTTON BASE ================= */
@@ -113,20 +113,20 @@
 @media (max-width: 992px) {
   .navbar {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center; /* ✅ centers everything */
+    text-align: center;
     padding: 1rem 1.5rem;
   }
 
-  .ml-auto {
+  .ms-auto {
     width: 100%;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    margin-top: 0.5rem;
+    justify-content: center; /* ✅ center buttons on mobile */
     gap: 0.8rem;
+    margin-top: 0.8rem;
   }
 
   .navbar .btn {
-    min-width: 110px;
+    min-width: 120px;
   }
 
   .navbar .text-light {

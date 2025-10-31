@@ -1,113 +1,152 @@
-/* ✅ Import a bold cinematic font */
+/* 🎨 Full-page gradient background */
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
-/* ✅ Fullscreen Home Container */
 .home-page {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  background: #000; /* fallback color */
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  background: linear-gradient(180deg, #0a0014 0%, #4b006e 40%, #8b003f 100%);
   color: #fff;
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: 'Orbitron', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* ✅ Centers vertically */
+  text-align: center;
+  position: relative;
+  z-index: 2;
 }
 
-/* ✅ GIF fills entire viewport horizontally & vertically */
+/* Hero Section */
+.hero-section {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* ✅ Center inside the hero section too */
+  min-height: 100vh; /* ✅ Ensures full screen centering */
+  padding: 0 2rem;
+}
+
+/* Background GIF */
 .gif-grid.single {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   z-index: 0;
 }
 
-/* ✅ Background image setup (darker for contrast) */
 .gif-item {
   width: 100%;
   height: 100%;
-  background-size: cover;      
-  background-position: center; 
-  background-repeat: no-repeat;
-  filter: brightness(0.25) contrast(1.1); /* 🔥 darker and more cinematic */
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.4);
 }
 
-/* ✅ Title — large, bold, and deeply embossed */
+/* Title - Only this uses Bebas Neue */
 .title {
-  position: relative;
-  z-index: 1;
-  font-size: 8rem; /* 🔥 increased from 7rem */
-  font-weight: 900;
-  text-align: center;
-  letter-spacing: 4px;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 9rem;
+  font-weight: 700;
   color: #ffffff;
-  text-transform: uppercase;
+  text-shadow: 0 10px 35px rgba(0, 0, 0, 0.9);
+  letter-spacing: 4px;
   margin: 0;
-  line-height: 1.05;
-
-  /* 🎬 3D depth with layered shadows */
-  text-shadow:
-    1px 1px 0 #999,
-    2px 2px 0 #777,
-    3px 3px 0 #555,
-    4px 4px 0 #333,
-    5px 5px 0 #111,
-    6px 6px 12px rgba(0, 0, 0, 0.95);
+  z-index: 2;
 }
 
-/* ✅ Responsive scaling for smaller screens */
-@media (max-width: 768px) {
-  .title {
-    font-size: 5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .title {
-    font-size: 3.5rem;
-    letter-spacing: 2px;
-  }
-}
-/* ✅ Subtitle under title */
+/* Subtitle — closer, single-line & balanced */
 .subtitle {
-  position: relative;
-  z-index: 1;
   font-size: 1.8rem;
-  font-weight: 400;
-  color: #cccccc;
-  margin-top: 1.2rem;
-  text-align: center;
+  margin-top: 0.5rem; /* ✅ Keeps subtitle close */
+  color: #ccc;
+  white-space: nowrap; /* ✅ Prevents wrapping */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  z-index: 2;
   letter-spacing: 1px;
-  font-family: 'Poppins', sans-serif;
-  max-width: 80%;
-  line-height: 1.6;
 }
 
-/* 🎨 Gradient text for key words — “violent gradient” (deep purple to blood red) */
+/* Violent Gradient Highlight */
 .highlight {
   background: linear-gradient(90deg, #7b2ff7, #f10707);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-weight: 700;
-  letter-spacing: 1px;
   text-shadow: 0 2px 15px rgba(255, 0, 100, 0.3);
 }
 
-/* Responsive scaling */
-@media (max-width: 768px) {
-  .subtitle {
-    font-size: 1.4rem;
-  }
+/* About Section */
+.about-section {
+  padding: 10rem 3rem;
+  max-width: 900px;
+  position: relative;
+  z-index: 2;
 }
 
-@media (max-width: 480px) {
-  .subtitle {
-    font-size: 1.1rem;
-  }
+.about-section h2 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.about-section p {
+  font-size: 1.3rem;
+  color: #ddd;
+  line-height: 1.8;
+}
+
+/* Services Section */
+.services-section {
+  padding: 8rem 2rem;
+  z-index: 2;
+}
+
+.section-title {
+  font-size: 3rem;
+  margin-bottom: 4rem;
+  text-transform: uppercase;
+}
+
+.services-grid {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.service-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 2rem;
+  width: 280px;
+  transition: all 0.4s ease;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 20px rgba(255, 0, 80, 0.15);
+}
+
+.service-card:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 0 25px rgba(255, 0, 80, 0.4);
+}
+
+/* Footer */
+.footer {
+  padding: 5rem 2rem;
+  font-size: 1rem;
+  color: #bbb;
+  z-index: 2;
+}
+
+/* Bebas Neue Regular */
+.bebas-neue-regular {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }

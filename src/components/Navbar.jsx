@@ -7,17 +7,32 @@ export default function Navbar() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  // Load user info on mount
-  useEffect(() => {
+  // 🔹 Load user info from localStorage
+  const loadUser = () => {
     const username = localStorage.getItem("username");
     const role = localStorage.getItem("role");
     const token = localStorage.getItem("token");
+
     if (token && username && role) {
       setUser({ name: username, role });
+    } else {
+      setUser(null);
     }
+  };
+
+  // 🔹 Run once on mount
+  useEffect(() => {
+    loadUser();
+
+    // 🔹 Listen for localStorage updates (login/logout)
+    const handleStorageChange = () => loadUser();
+    window.addEventListener("storage", handleStorageChange);
+
+    // 🔹 Cleanup listener
+    return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
-  // Logout handler
+  // 🔹 Logout handler
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
@@ -26,20 +41,25 @@ export default function Navbar() {
     navigate("/login");
   };
 
-  // Return correct dashboard route based on role
+  // 🔹 Get correct dashboard route
   const getDashboardLink = () => {
     if (!user) return "/";
-    switch (user.role.toUpperCase()) {
-      case "ADMIN": return "/dashboard/admin";
-      case "AUDITOR": return "/dashboard/auditor";
-      case "ENGINEER": return "/dashboard/engineer";
-      default: return "/";
+    switch (user.role.trim().toUpperCase()) {
+      case "ADMIN":
+        return "/dashboard/admin";
+      case "AUDITOR":
+        return "/dashboard/auditor";
+      case "ENGINEER":
+        return "/dashboard/engineer";
+      default:
+        return "/";
     }
   };
 
-  // Conditionally render device management link
-  const showDevicesLink = user && 
-    (user.role.toUpperCase() === "ADMIN" || user.role.toUpperCase() === "ENGINEER");
+  // 🔹 Devices link visible for Admin / Engineer
+  const showDevicesLink =
+    user &&
+    ["ADMIN", "ENGINEER"].includes(user.role.trim().toUpperCase());
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-3">
@@ -63,19 +83,16 @@ export default function Navbar() {
               👋 Hello, <strong>{user.name}</strong>
             </span>
 
-            {/* Dashboard link */}
             <Link className="btn btn-outline-light me-2" to={getDashboardLink()}>
               Dashboard
             </Link>
 
-            {/* Devices link for Admin / Engineer */}
             {showDevicesLink && (
               <Link className="btn btn-outline-info me-2" to="/devices">
                 Devices
               </Link>
             )}
 
-            {/* Logout button */}
             <button
               className="btn btn-outline-danger"
               onClick={handleLogout}
