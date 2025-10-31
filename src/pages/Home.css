@@ -1,0 +1,113 @@
+/* ✅ Import a bold cinematic font */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+/* ✅ Fullscreen Home Container */
+.home-page {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: #000; /* fallback color */
+  color: #fff;
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+/* ✅ GIF fills entire viewport horizontally & vertically */
+.gif-grid.single {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+}
+
+/* ✅ Background image setup (darker for contrast) */
+.gif-item {
+  width: 100%;
+  height: 100%;
+  background-size: cover;      
+  background-position: center; 
+  background-repeat: no-repeat;
+  filter: brightness(0.25) contrast(1.1); /* 🔥 darker and more cinematic */
+}
+
+/* ✅ Title — large, bold, and deeply embossed */
+.title {
+  position: relative;
+  z-index: 1;
+  font-size: 8rem; /* 🔥 increased from 7rem */
+  font-weight: 900;
+  text-align: center;
+  letter-spacing: 4px;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1.05;
+
+  /* 🎬 3D depth with layered shadows */
+  text-shadow:
+    1px 1px 0 #999,
+    2px 2px 0 #777,
+    3px 3px 0 #555,
+    4px 4px 0 #333,
+    5px 5px 0 #111,
+    6px 6px 12px rgba(0, 0, 0, 0.95);
+}
+
+/* ✅ Responsive scaling for smaller screens */
+@media (max-width: 768px) {
+  .title {
+    font-size: 5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 3.5rem;
+    letter-spacing: 2px;
+  }
+}
+/* ✅ Subtitle under title */
+.subtitle {
+  position: relative;
+  z-index: 1;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: #cccccc;
+  margin-top: 1.2rem;
+  text-align: center;
+  letter-spacing: 1px;
+  font-family: 'Poppins', sans-serif;
+  max-width: 80%;
+  line-height: 1.6;
+}
+
+/* 🎨 Gradient text for key words — “violent gradient” (deep purple to blood red) */
+.highlight {
+  background: linear-gradient(90deg, #7b2ff7, #f10707);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 15px rgba(255, 0, 100, 0.3);
+}
+
+/* Responsive scaling */
+@media (max-width: 768px) {
+  .subtitle {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .subtitle {
+    font-size: 1.1rem;
+  }
+}

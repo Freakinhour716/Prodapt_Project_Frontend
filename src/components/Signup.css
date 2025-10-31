@@ -1,0 +1,72 @@
+/* Signup.css */
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1e1e2f, #232347, #161625);
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+}
+
+.signup-card {
+  background: rgba(30, 30, 45, 0.9);
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  backdrop-filter: blur(12px);
+  animation: fadeIn 0.8s ease;
+}
+
+.signup-card h2 {
+  font-weight: 600;
+  background: linear-gradient(90deg, #00d4ff, #8a2be2);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 30px;
+  letter-spacing: 1px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-control {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  padding: 12px 15px;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 10px #8a2be2;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, #8a2be2, #00d4ff);
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  padding: 12px;
+  width: 100%;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(138, 43, 226, 0.5);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
