@@ -108,22 +108,18 @@ export default function LicenseManagement() {
   };
 
   return (
-    <div className="p-8">
-      <h1 className="text-3xl font-bold mb-6">License Management</h1>
+    <div className="license-container">
+      <h1>License Management</h1>
 
-      {/* 🔍 Search Filter */}
-      <div className="mb-6 flex justify-between items-center">
+      {/* 🔍 Glossy Search Filter Bar */}
+      <div className="filter-bar">
         <input
           type="text"
           placeholder="Search by software or vendor..."
           value={searchTerm}
           onChange={(e) => handleFilter(e.target.value)}
-          className="border border-gray-300 px-4 py-2 rounded-lg w-1/2"
         />
-        <button
-          onClick={resetForm}
-          className="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300"
-        >
+        <button onClick={resetForm}>
           {editingLicense ? "Cancel Edit" : "Clear"}
         </button>
       </div>
