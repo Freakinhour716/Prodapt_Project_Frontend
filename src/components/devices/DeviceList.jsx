@@ -84,7 +84,7 @@ const DeviceList = ({ devices, fetchDevices, setEditingDevice }) => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this device?")) {
       try {
-        await api.delete(`/api/devices/${id}`);
+        await api.delete(`/devices/${id}`);
         alert("🗑️ Device deleted successfully");
         fetchDevices();
       } catch (error) {

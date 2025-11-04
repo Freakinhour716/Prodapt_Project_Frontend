@@ -8,6 +8,10 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Dashboard from "./pages/Dashboard"; // Unified dashboard
 import DeviceManagement from "./components/devices/DeviceManagement";
+import LicenseManagement from "./components/licenses/LicenseManagement";
+
+
+
 
 // 🔐 Protected Route Component
 const ProtectedRoute = ({ children, allowedRoles }) => {
@@ -71,6 +75,14 @@ function App() {
             </ProtectedRoute>
           }
         />
+          <Route
+    path="/licenses"
+    element={
+      <ProtectedRoute allowedRoles={["ADMIN", "ENGINEER", "AUDITOR"]}>
+        <LicenseManagement />
+      </ProtectedRoute>
+    }
+  />
 
         {/* 🌐 Catch-all route */}
         <Route path="*" element={<Navigate to="/" replace />} />

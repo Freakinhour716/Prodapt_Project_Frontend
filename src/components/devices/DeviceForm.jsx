@@ -129,9 +129,16 @@ export default function DeviceForm({ fetchDevices, editingDevice, setEditingDevi
     status: "ACTIVE",
   });
 
+ 
+
   useEffect(() => {
-    if (editingDevice) setDevice(editingDevice);
-  }, [editingDevice]);
+  if (editingDevice) {
+    setDevice(editingDevice);
+    // 🔹 Smooth scroll to the top of the page (form)
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+}, [editingDevice]);
+
 
   const handleChange = (e) => {
     setDevice({ ...device, [e.target.name]: e.target.value });
@@ -143,10 +150,10 @@ export default function DeviceForm({ fetchDevices, editingDevice, setEditingDevi
       console.log("Submitting device data:", device);
 
       if (editingDevice) {
-        await api.put(`/api/devices/${device.deviceId}`, device);
+        await api.put(`/devices/${device.deviceId}`, device);
         alert("✅ Device updated successfully");
       } else {
-        await api.post("/api/devices", device);
+        await api.post("/devices", device);
         alert("✅ Device added successfully");
       }
 
