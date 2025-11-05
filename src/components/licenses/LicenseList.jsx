@@ -10,7 +10,7 @@ export default function LicenseList({ licenses, handleEdit, handleDelete }) {
           <tr>
             <th>License Key</th>
             <th>Software</th>
-            <th>Vendor</th>
+            <th>Vendor ID</th> {/* Display vendorId instead of vendor name */}
             <th>Valid From</th>
             <th>Valid To</th>
             <th>Type</th>
@@ -24,7 +24,7 @@ export default function LicenseList({ licenses, handleEdit, handleDelete }) {
               <tr key={l.licenseKey}>
                 <td>{l.licenseKey}</td>
                 <td>{l.softwareName}</td>
-                <td>{l.vendor?.vendorName}</td>
+                <td>{l.vendorId}</td> {/* Display vendorId */}
                 <td>{l.validFrom}</td>
                 <td>{l.validTo}</td>
                 <td>{l.licenseType}</td>

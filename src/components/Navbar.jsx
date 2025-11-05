@@ -7,7 +7,6 @@ export default function Navbar() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  // 🔹 Load user info from localStorage
   const loadUser = () => {
     const username = localStorage.getItem("username");
     const role = localStorage.getItem("role");
@@ -20,19 +19,13 @@ export default function Navbar() {
     }
   };
 
-  // 🔹 Run once on mount
   useEffect(() => {
     loadUser();
-
-    // 🔹 Listen for localStorage updates (login/logout)
     const handleStorageChange = () => loadUser();
     window.addEventListener("storage", handleStorageChange);
-
-    // 🔹 Cleanup listener
     return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
-  // 🔹 Logout handler
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
@@ -41,7 +34,6 @@ export default function Navbar() {
     navigate("/login");
   };
 
-  // 🔹 Get correct dashboard route
   const getDashboardLink = () => {
     if (!user) return "/";
     switch (user.role.trim().toUpperCase()) {
@@ -56,8 +48,8 @@ export default function Navbar() {
     }
   };
 
-  // 🔹 Devices link visible for Admin / Engineer
-  const showDevicesLink =
+  // ✅ Devices & Licenses visible for Admin + Engineer
+  const showManagementLinks =
     user &&
     ["ADMIN", "ENGINEER"].includes(user.role.trim().toUpperCase());
 
@@ -87,16 +79,20 @@ export default function Navbar() {
               Dashboard
             </Link>
 
-            {showDevicesLink && (
-              <Link className="btn btn-outline-info me-2" to="/devices">
-                Devices
-              </Link>
+            {showManagementLinks && (
+              <>
+                <Link className="btn btn-outline-info me-2" to="/devices">
+                  Devices
+                </Link>
+
+                {/* ✅ New Licenses Link */}
+                <Link className="btn btn-outline-warning me-2" to="/licenses">
+                  Licenses
+                </Link>
+              </>
             )}
 
-            <button
-              className="btn btn-outline-danger"
-              onClick={handleLogout}
-            >
+            <button className="btn btn-outline-danger" onClick={handleLogout}>
               Logout
             </button>
           </>

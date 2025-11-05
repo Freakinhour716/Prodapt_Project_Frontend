@@ -6,24 +6,21 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-import Dashboard from "./pages/Dashboard"; // Unified dashboard
+import Dashboard from "./pages/Dashboard";
 import DeviceManagement from "./components/devices/DeviceManagement";
 import LicenseManagement from "./components/licenses/LicenseManagement";
 
-
-
+// ✅ Toastify Imports
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // 🔐 Protected Route Component
 const ProtectedRoute = ({ children, allowedRoles }) => {
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
 
-  // 🧩 1️⃣ Redirect to login if not authenticated
-  if (!token) {
-    return <Navigate to="/login" replace />;
-  }
+  if (!token) return <Navigate to="/login" replace />;
 
-  // 🧩 2️⃣ Redirect to home if role not allowed
   if (allowedRoles && !allowedRoles.includes(role)) {
     return <Navigate to="/" replace />;
   }
@@ -32,21 +29,34 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
 };
 
 function App() {
-  const role = localStorage.getItem("role");
-
   return (
     <Router>
-      {/* ✅ 3️⃣ Navbar outside <main> ensures it doesn't affect Home layout */}
       <Navbar />
 
-      {/* Wrap Routes in <main> only if necessary */}
+      {/* ✅ Toast Container for Popup Alerts */}
+      <ToastContainer
+        theme="dark"
+        position="top-center"
+        autoClose={2000}
+        closeOnClick
+        pauseOnHover={false}
+        draggable
+        newestOnTop
+        toastStyle={{
+          backgroundColor: "rgba(20,20,30,0.85)",
+          backdropFilter: "blur(6px)",
+          borderRadius: "12px",
+          border: "1px solid rgba(255,255,255,0.08)",
+        }}
+      />
+
       <Routes>
-        {/* 🏠 Public routes */}
+        {/* Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
-        {/* 📊 Dashboard */}
+        {/* Protected Routes */}
         <Route
           path="/dashboard"
           element={
@@ -56,7 +66,6 @@ function App() {
           }
         />
 
-        {/* 🧩 Device Management */}
         <Route
           path="/devices"
           element={
@@ -66,7 +75,16 @@ function App() {
           }
         />
 
-        {/* 🔁 Redirect /user → dashboard */}
+        <Route
+          path="/licenses"
+          element={
+            <ProtectedRoute allowedRoles={["ADMIN", "ENGINEER", "AUDITOR"]}>
+              <LicenseManagement />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Redirect /user → dashboard */}
         <Route
           path="/user"
           element={
@@ -75,16 +93,8 @@ function App() {
             </ProtectedRoute>
           }
         />
-          <Route
-    path="/licenses"
-    element={
-      <ProtectedRoute allowedRoles={["ADMIN", "ENGINEER", "AUDITOR"]}>
-        <LicenseManagement />
-      </ProtectedRoute>
-    }
-  />
 
-        {/* 🌐 Catch-all route */}
+        {/* Fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
