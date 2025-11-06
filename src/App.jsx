@@ -13,6 +13,8 @@ import LicenseManagement from "./components/licenses/LicenseManagement";
 // ✅ Toastify Imports
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AssignmentManagement from "./components/assignments/AssignmentManagement";
+import AuthProvider from "./context/AuthContext";
 
 // 🔐 Protected Route Component
 const ProtectedRoute = ({ children, allowedRoles }) => {
@@ -30,6 +32,7 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
 
 function App() {
   return (
+    <AuthProvider> 
     <Router>
       <Navbar />
 
@@ -83,6 +86,11 @@ function App() {
             </ProtectedRoute>
           }
         />
+       
+        <Route path="/assignments" element={
+           <ProtectedRoute allowedRoles={["ADMIN", "ENGINEER", "AUDITOR"]}>
+              <AssignmentManagement />
+            </ProtectedRoute>} />
 
         {/* Redirect /user → dashboard */}
         <Route
@@ -98,6 +106,8 @@ function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
+
+     </AuthProvider>
   );
 }
 

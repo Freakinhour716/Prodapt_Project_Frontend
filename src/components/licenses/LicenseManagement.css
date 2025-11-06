@@ -585,3 +585,40 @@ body, #root {
   }
 }
 
+.btn-delete {
+  background: linear-gradient(180deg, #fb7185, #dc2626);
+  color: #fff;
+  transition: transform 0.15s ease-in-out, box-shadow 0.2s ease;
+}
+
+.btn-delete:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 14px rgba(239,68,68,0.35);
+}
+.btn-delete:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 2px 8px rgba(239,68,68,0.25);
+}
+
+
+/* Dim background */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+/* Popup Slide/Scale Animation */
+.popup {
+  animation: fadeInScale .35s ease-out;
+}
+
+@keyframes fadeInScale {
+  0% { opacity: 0; transform: scale(0.85); }
+  100% { opacity: 1; transform: scale(1); }
+}

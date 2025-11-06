@@ -1,57 +1,55 @@
 // src/components/licenses/LicenseList.jsx
 import React from "react";
+import { toast } from "react-toastify";
+import api from "../../services/api";
 import "./LicenseManagement.css";
 
 export default function LicenseList({ licenses, handleEdit, handleDelete }) {
   return (
-    <div className="license-list-container">
-      <table className="license-table">
+    <div className="license-list">
+      <table>
         <thead>
           <tr>
             <th>License Key</th>
             <th>Software</th>
-            <th>Vendor ID</th> {/* Display vendorId instead of vendor name */}
+            <th>Vendor</th>
             <th>Valid From</th>
             <th>Valid To</th>
             <th>Type</th>
             <th>Max Usage</th>
+            <th>Notes</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {licenses.length > 0 ? (
-            licenses.map((l) => (
-              <tr key={l.licenseKey}>
-                <td>{l.licenseKey}</td>
-                <td>{l.softwareName}</td>
-                <td>{l.vendorId}</td> {/* Display vendorId */}
-                <td>{l.validFrom}</td>
-                <td>{l.validTo}</td>
-                <td>{l.licenseType}</td>
-                <td>{l.maxUsage}</td>
-                <td className="license-actions">
-                  <button
-                    onClick={() => handleEdit(l)}
-                    className="btn-edit"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(l.licenseKey)}
-                    className="btn-delete"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="8" className="no-data">
-                No licenses found
+          {licenses.map((l) => (
+            <tr key={l.licenseKey}>
+              <td>{l.licenseKey}</td>
+              <td>{l.softwareName}</td>
+              <td>{l.vendor?.vendorName || "N/A"}</td>
+              <td>{l.validFrom}</td>
+              <td>{l.validTo}</td>
+              <td>{l.licenseType}</td>
+              <td>{l.maxUsage}</td>
+              <td>{l.notes || "-"}</td>
+
+              <td className="license-actions">
+                <button
+                  className="btn-edit"
+                  onClick={() => handleEdit(l)} // Passing the license to be edited
+                >
+                  Edit
+                </button>
+
+                <button
+                  className="btn-delete"
+                  onClick={() => handleDelete(l.licenseKey)} // Handling deletion
+                >
+                  Delete
+                </button>
               </td>
             </tr>
-          )}
+          ))}
         </tbody>
       </table>
     </div>
