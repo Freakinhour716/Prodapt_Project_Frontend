@@ -492,3 +492,40 @@ body, #root {
 }
 
 
+/* Dim background */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+/* Popup Slide/Scale Animation */
+.popup {
+  animation: fadeInScale .35s ease-out;
+}
+
+@keyframes fadeInScale {
+  0% { opacity: 0; transform: scale(0.85); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.btn-export {
+  background: linear-gradient(180deg, #0ea5e9, #0369a1);
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .18s ease;
+}
+
+.btn-export:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(14,165,233,0.35);
+}

@@ -2,18 +2,28 @@
 import React from "react";
 import { toast } from "react-toastify";
 import api from "../../services/api";
+import "./AssignmentManagement.css";
 
-export default function AssignmentList({ assignments, fetchAssignments, handleEdit }) {
-
+export default function AssignmentList({
+  assignments,
+  fetchAssignments,
+  onEdit,
+  canManage
+}) {
   const handleDelete = async (id) => {
+    if (!canManage) {
+      return toast.warn("🔒 View-only access (Auditor)");
+    }
+
     if (!window.confirm("Remove this assignment?")) return;
 
     try {
       await api.delete(`/assignments/${id}`);
       fetchAssignments();
-      toast.success("🗑️ Assignment removed");
+      toast.success("✅ Assignment removed");
     } catch (err) {
       toast.error("❌ Delete failed");
+      console.error(err);
     }
   };
 
@@ -27,7 +37,7 @@ export default function AssignmentList({ assignments, fetchAssignments, handleEd
             <th>Assigned To (Device)</th>
             <th>Assigned On</th>
             <th>Revoked On</th>
-            <th>Action</th>
+            <th>Actions</th>
           </tr>
         </thead>
 
@@ -38,13 +48,28 @@ export default function AssignmentList({ assignments, fetchAssignments, handleEd
               <td>{a.softwareName}</td>
               <td>{a.deviceId}</td>
               <td>{a.assignedOn}</td>
-              <td>{a.revokedOn ?? "-"}</td>
+              <td>{a.revokedOn ?? "Active"}</td>
 
-              <td className="actions">
-                <button className="btn-edit" onClick={() => handleEdit(a)}>
+              <td className="actions-col">
+                <button
+                  className="btn-edit"
+                  disabled={!canManage}
+                  style={!canManage ? { opacity: 0.4, cursor: "not-allowed" } : {}}
+                  onClick={() =>
+                    canManage
+                      ? onEdit(a)
+                      : toast.warn("🔒 Auditor mode — Edit restricted")
+                  }
+                >
                   Edit
                 </button>
-                <button className="btn-delete" onClick={() => handleDelete(a.assignmentId)}>
+
+                <button
+                  className="btn-delete"
+                  disabled={!canManage}
+                  style={!canManage ? { opacity: 0.4, cursor: "not-allowed" } : {}}
+                  onClick={() => handleDelete(a.assignmentId)}
+                >
                   Remove
                 </button>
               </td>

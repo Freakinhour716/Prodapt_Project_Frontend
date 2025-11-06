@@ -1,18 +1,18 @@
-// src/components/ProtectedRoute.jsx
+// ✅ src/components/ProtectedRoute.jsx
+import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
-import { isLoggedIn, getCurrentUser } from "../services/auth";
+import { AuthContext } from "../context/AuthContext";
 
 const ProtectedRoute = ({ children, allowedRoles = [] }) => {
-  if (!isLoggedIn()) return <Navigate to="/login" replace />;
+  const { user, loading } = useContext(AuthContext);
 
-  const user = getCurrentUser();
-  if (!user) return <Navigate to="/login" replace />;
+  if (loading) return null; // ⏳ Wait for auth to resolve
 
-  // Normalize role (remove prefix if exists)
-  const normalizedRole = user.role?.replace("ROLE_", "");
+  if (!user?.token) return <Navigate to="/login" replace />;
 
-  // Check allowed roles (if provided)
-  if (allowedRoles.length > 0 && !allowedRoles.includes(normalizedRole)) {
+  const role = user.role?.replace("ROLE_", "").toUpperCase();
+
+  if (allowedRoles.length > 0 && !allowedRoles.includes(role)) {
     return <Navigate to="/" replace />;
   }
 
